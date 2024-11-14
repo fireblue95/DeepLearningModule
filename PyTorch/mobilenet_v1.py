@@ -39,7 +39,7 @@ class MobileNetV1(Module):
             alpha: width_multiplier
         """
         super(MobileNetV1, self).__init__()
-        self.num_classes = num_classes
+        # self.num_classes = num_classes
 
         # self.mobile_net = Sequential(OrderedDict([
         #     ('conv1', Conv2d(3, 32, kernel_size=3, stride=2, padding=1)),
@@ -58,7 +58,7 @@ class MobileNetV1(Module):
         #     ('conv8_5', DWSepConv(512, 512)),
         #     ('conv9', DWSepConv(512, 1024, stride=2)),
         #     ('conv10', DWSepConv(1024, 1024)),
-        #     ('avg_pool', AvgPool2d(kernel_size=7, stride=1)),
+        #     ('avg_pool', AvgPool2d(kernel_size=7)),
         #     ('flatten', Flatten(start_dim=1)),
         #     ('fc', Linear(1024, num_classes))
         # ]))
@@ -85,7 +85,7 @@ class MobileNetV1(Module):
                                  DWSepConv(channels[i - 1], channels[i],
                                            stride=2 if conv_name[i - 1] in ['conv3', 'conv5', 'conv7', 'conv9'] else 1)))
 
-        out_list += [('avg_pool', AvgPool2d(kernel_size=7, stride=1)),
+        out_list += [('avg_pool', AvgPool2d(kernel_size=7)),
                      ('flatten', Flatten(start_dim=1)),
                      ('fc', Linear(channels[-1], num_classes))]
 
@@ -100,9 +100,6 @@ if __name__ == '__main__':
     import torch
     from torchinfo import summary
 
-    # a = torch.randn(1, 16, 7, 7)
-    # model = DWSepConv(16, 32, 2)
-    # a = torch.randn(1, 3, 300, 300)
     a = torch.randn(1, 3, 224,  224)
     model = MobileNetV1(1000, alpha=1)
 
