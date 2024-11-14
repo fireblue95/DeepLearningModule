@@ -109,4 +109,4 @@ if __name__ == '__main__':
     b = model(a)
     print(b.shape)
 
-    summary(model)
+    summary(model, input_size=(1, 3, 224, 224))
