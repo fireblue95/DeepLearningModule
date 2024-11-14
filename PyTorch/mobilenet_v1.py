@@ -104,7 +104,7 @@ if __name__ == '__main__':
     # model = DWSepConv(16, 32, 2)
     # a = torch.randn(1, 3, 300, 300)
     a = torch.randn(1, 3, 224,  224)
-    model = MobileNetV1(80, alpha=0.75)
+    model = MobileNetV1(1000, alpha=1)
 
     b = model(a)
     print(b.shape)
