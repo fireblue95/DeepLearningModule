@@ -2,6 +2,7 @@
 from collections import OrderedDict
 from typing import Dict
 
+import torch
 from torch import Tensor
 from torch.nn import (AvgPool2d, BatchNorm2d, Conv2d, Flatten, Linear, Module,
                       ReLU6, Sequential)
@@ -59,7 +60,7 @@ class MobileNetV2(Module):
         ]
 
         self.layer1 = Sequential(OrderedDict([
-            ('conv1', Conv2d(3, 32, kernel_size=3, stride=2, padding=1, bias=False)),
+            ('conv1', Conv2d(1, 32, kernel_size=3, stride=2, padding=1, bias=False)),
             ('bn1', BatchNorm2d(32)),
             ('relu6_1', ReLU6(inplace=True))
         ]))
@@ -110,7 +111,7 @@ if __name__ == '__main__':
     from torchinfo import summary
 
     # a = torch.randn(1, 3, 300, 300)
-    a = torch.randn(1, 3, 224,  224)
+    a = torch.randn(1, 1, 28, 28)
     # model = BottleNeck(3, 64, 1, 6)
     model = MobileNetV2()
 
@@ -118,4 +119,4 @@ if __name__ == '__main__':
 
     print(b.shape)
 
-    summary(model, input_size=(1, 3, 224, 224), device="cpu")
+    summary(model, input_size=(1, 1, 28, 28), device="cpu")
